@@ -1,0 +1,98 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: PCF Metrics Documentation
+---
+
+The PCF Metrics tile stores metrics data from applications running on PCF and
+graphically presents that data for operators and developers.
+
+## Product Snapshot
+
+<dl>
+<dt>Current PCF Metrics Details</dt>
+<dd><strong>Version</strong>: 1.0.0</dd>
+<dd><strong>Release Date</strong>: TBD</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: TBD</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
+<dd><strong>AWS support?</strong> Yes<dd>
+<dd><strong>vSphere support?</strong> Yes</dd>
+<dd><strong>OpenStack support?</strong> Unconfirmed</dd>
+</dl>
+
+## Installation via Pivotal Ops Manager
+
+#### Prerequesites
+
+You will first have to deploy the
+[Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/getstarted/index.html).
+
+### Step 1: Run CloudFormation Script (AWS deploy only)
+
+1. Download Metrics <a href="<%= asset_url "assets/cloud_formations_template.json" %>" target="_blank">CloudFormation script</a>.
+2. Log on to the AWS Console and go to the CloudFormation Management Console.
+3. Click 'Create Stack'.
+4. Select 'Upload a template to Amazon S3'.
+5. Click 'Choose File' and choose the downloaded file.
+6. Click Next
+7. Specify the follow details:
+
+| Name                 | Example Value       | Description                                                                                                                                          |
+|----------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Stack Name           | metrics-tile        | Unique name for the stack                                                                                                                            |
+| ELBRecordSetName     | apm.your-domain.com | DNS name where the PCF Metrics deployment will be located. Must be within the HostedZoneName. Optional, will not create DNS record if not specified. |
+| ExternalCIDR         | 10.0.134.0/24       | External subnet CIDR block that the ELB will reside in.                                                                                              |
+| ExternalRouteTableID | rtb-xxxxxxxx        | The ID of the route table for the External Subnet.                                                                                                   |
+| HAProxyPort          | 80                  | TCP/IP port of the HA Proxy server. Must be 80 (HTTP)                                                                                                |
+| HostedZoneName       | your-domain.com.    | (Optional) Route53 Hosted Zone in which to register the ELB's DNS record.                                                                            |
+| NamePrefix           | metrics-tile        | The prefix to use for all instance names created by this deployment                                                                                  |
+| SecurityGroupID      | sg-xxxxxxxx         | The ID of ELB security group                                                                                                                         |
+| SSLCert              | my_cert             | The name of the SSL Certificate for the ELB. Can be the same as the Elastic Runtime certificate.                                                     |
+| VPCID                | vpc-xxxxxxxx        | The ID of the deployment VPC                                                                                                                         |
+
+8. Click 'Next' until you can click 'Create'
+9. Click 'Create'
+
+### Step 2: Add the PCF Metrics Tile to Ops Manager
+
+1. Download the product file from
+   [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
+1. Upload the product file to your Ops Manager installation.
+1. Click **Add** next to the uploaded product description in the Ops Manager
+   `Available Products` view to add this product to your staging area.
+
+### Step 3: Configure the PCF Metrics Tile
+
+On the Installation Dashboard, click the 'Metrics' tile.
+Note: the tile is orange because it requires configuration
+
+#### Assign Networks
+
+1. Use the drop down to select a Network
+1. Click 'Save'
+
+#### Assign Availability Zones
+
+1. Select an Availability Zone under 'Place singleton jobs'. Ops Manager
+   runs Metrics jobs with a single instance in this Availability Zone.
+1. Select one or more Availability Zones under 'Balance other jobs'. Ops
+   Manager balances instances of Metrics jobs with more than one instance
+   across the Availability Zones that you specify.
+1. Click 'Save'
+
+#### Resource Config
+
+Review all the resource configurations
+Click 'Save'
+
+#### Stemcell
+
+1. Here you will download and install the required stemcell.
+1. Log into the Pivotal Network and click on Stemcells.
+1. Download the appropriate stemcell version targeted for your IaaS.
+   Note: On AWS make sure to use a HVM stemcell if you are using the
+   default instance sizes.
+1. Click 'Import Stemcell' and select the stemcell file just downloaded.
+
+### Step 4: Deploy PCF Metrics
+
+1. Click **Apply Changes** to install the service.
