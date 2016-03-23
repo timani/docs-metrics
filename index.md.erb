@@ -10,7 +10,7 @@ graphically presents that data for operators and developers.
 
 <dl>
 <dt>Current PCF Metrics Details</dt>
-<dd><strong>Version</strong>: 1.0.0</dd>
+<dd><strong>Version</strong>: 1.0.2-beta</dd>
 <dd><strong>Release Date</strong>: TBD</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: TBD</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
@@ -39,14 +39,7 @@ You will first have to deploy the
 | Name                 | Example Value           | Description                                                                                                                                          |
 |----------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Stack Name           | metrics-tile            | Unique name for the stack                                                                                                                            |
-| ELBRecordSetName     | metrics.your-domain.com | DNS name where the PCF Metrics deployment will be located. Must be within the HostedZoneName. Optional, will not create DNS record if not specified. |
-| ExternalCIDR         | 10.0.134.0/24           | External subnet CIDR block that the ELB will reside in.                                                                                              |
-| ExternalRouteTableID | rtb-xxxxxxxx            | The ID of the route table for the External Subnet.                                                                                                   |
-| HAProxyPort          | 80                      | TCP/IP port of the HA Proxy server. Must be 80 (HTTP)                                                                                                |
-| HostedZoneName       | your-domain.com.        | (Optional) Route53 Hosted Zone in which to register the ELB's DNS record.                                                                            |
 | NamePrefix           | metrics-tile            | The prefix to use for all instance names created by this deployment                                                                                  |
-| SecurityGroupID      | sg-xxxxxxxx             | The ID of ELB security group                                                                                                                         |
-| SSLCert              | my_cert                 | The name of the SSL Certificate for the ELB. Can be the same as the Elastic Runtime certificate.                                                     |
 | VPCID                | vpc-xxxxxxxx            | The ID of the deployment VPC                                                                                                                         |
 
 8. Click 'Next' until you can click 'Create'

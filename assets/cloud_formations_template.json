@@ -2,27 +2,6 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "PCF Metrics deployment - Creates instances for all PCF Metrics components and hooks an ELB up to the Proxy instance.",
   "Parameters": {
-    "HAProxyPort": {
-      "Description": "TCP/IP port of the HA Proxy server",
-      "Type": "Number",
-      "Default": "80"
-    },
-    "ELBRecordSetName": {
-      "Description": "(Optional) Route53 Record Set name for the ELB.",
-      "Type": "String"
-    },
-    "ExternalCIDR": {
-      "Description": "External subnet CIDR block that the ELB will reside in.",
-      "Type": "String"
-    },
-    "ExternalRouteTableID": {
-      "Description": "The ID of the route table for the External Subnet.",
-      "Type": "String"
-    },
-    "HostedZoneName": {
-      "Description": "(Optional) Route53 Hosted Zone in which to register the ELB's DNS record.",
-      "Type": "String"
-    },
     "InternalCIDR": {
       "Description": "(Optional, don't use for PCF installs) Internal subnet CIDR block.",
       "Type": "String"
@@ -36,14 +15,6 @@
       "Type": "String",
       "Default": "metrix"
     },
-    "SSLCert": {
-      "Description": "(Optional, not used if terminating SSL on the HA Proxy) The name of the SSL Certificate for the ELB",
-      "Type": "String"
-    },
-    "SecurityGroupID": {
-      "Description": "The ID of ELB security group",
-      "Type": "AWS::EC2::SecurityGroup::Id"
-    },
     "VPCID": {
       "Description": "The ID of the deployment VPC",
       "Type": "AWS::EC2::VPC::Id"
@@ -51,16 +22,6 @@
   },
 
   "Conditions": {
-    "CreateRecordSet": {
-      "Fn::And": [
-        {
-          "Fn::Not": [ { "Fn::Equals": [ { "Ref": "HostedZoneName" }, "" ] } ]
-        },
-        {
-          "Fn::Not": [ { "Fn::Equals": [ { "Ref": "ELBRecordSetName" }, "" ] } ]
-        }
-      ]
-    },
     "CreateInternalSubnet": {
       "Fn::And": [
         {
@@ -74,61 +35,6 @@
   },
 
   "Resources": {
-    "ElasticLoadBalancer": {
-      "Properties": {
-        "HealthCheck": {
-          "HealthyThreshold": "3",
-          "Interval": "30",
-          "Target": {
-            "Fn::Join": [ "", [ "HTTP:", { "Ref": "HAProxyPort" }, "/v2/info" ] ]
-          },
-          "Timeout": "5",
-          "UnhealthyThreshold": "5"
-        },
-        "Listeners": [
-          {
-            "InstancePort": {
-              "Ref": "HAProxyPort"
-            },
-            "InstanceProtocol": "TCP",
-            "LoadBalancerPort": "443",
-            "Protocol": "SSL",
-            "SSLCertificateId": {
-              "Fn::Join": [ "", [ "arn:aws:iam::", { "Ref": "AWS::AccountId" }, ":server-certificate/",
-                { "Ref": "SSLCert" } ]
-              ]
-            }
-          }
-        ],
-        "LoadBalancerName": { "Fn::Join": [ "-", [ { "Ref": "NamePrefix" }, "elb" ] ] },
-        "SecurityGroups": [ { "Ref": "SecurityGroupID" } ],
-        "Subnets": [ { "Ref": "ExternalSubnet" } ]
-      },
-      "Type": "AWS::ElasticLoadBalancing::LoadBalancer"
-    },
-    "ExternalSubnet": {
-      "Properties": {
-        "AvailabilityZone": {
-          "Fn::Select": [ "0", { "Fn::GetAZs": { "Ref": "AWS::Region" } } ]
-        },
-        "CidrBlock": { "Ref": "ExternalCIDR" },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": { "Fn::Join": [ "-", [ { "Ref": "NamePrefix" }, "load-balancer-external" ] ] }
-          }
-        ],
-        "VpcId": { "Ref": "VPCID" }
-      },
-      "Type": "AWS::EC2::Subnet"
-    },
-    "ExternalSubnetRouteTableAssociation": {
-      "Properties": {
-        "RouteTableId": { "Ref": "ExternalRouteTableID" },
-        "SubnetId": { "Ref": "ExternalSubnet" }
-      },
-      "Type": "AWS::EC2::SubnetRouteTableAssociation"
-    },
     "InternalSubnet": {
       "Condition": "CreateInternalSubnet",
       "Properties": {
@@ -153,23 +59,5 @@
         "SubnetId": { "Ref": "InternalSubnet" }
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation"
-    },
-    "WebELBRecordSet": {
-      "Condition": "CreateRecordSet",
-      "Properties": {
-        "HostedZoneName": { "Ref": "HostedZoneName" },
-        "RecordSets": [
-          {
-            "AliasTarget": {
-              "DNSName": { "Fn::GetAtt": [ "ElasticLoadBalancer", "CanonicalHostedZoneName" ] },
-              "HostedZoneId": { "Fn::GetAtt": [ "ElasticLoadBalancer", "CanonicalHostedZoneNameID" ] }
-            },
-            "Name": { "Ref": "ELBRecordSetName" },
-            "Type": "A"
-          }
-        ]
-      },
-      "Type": "AWS::Route53::RecordSetGroup"
     }
-  }
 }
