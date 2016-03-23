@@ -26,26 +26,7 @@ graphically presents that data for operators and developers.
 You will first have to deploy the
 [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/getstarted/index.html).
 
-### Step 1: Run CloudFormation Script (AWS deploy only)
-
-1. Download Metrics <a href="<%= asset_url "assets/cloud_formations_template.json" %>" target="_blank">CloudFormation script</a>.
-2. Log on to the AWS Console and go to the CloudFormation Management Console.
-3. Click 'Create Stack'.
-4. Select 'Upload a template to Amazon S3'.
-5. Click 'Choose File' and choose the downloaded file.
-6. Click Next
-7. Specify the follow details:
-
-| Name                 | Example Value           | Description                                                                                                                                          |
-|----------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Stack Name           | metrics-tile            | Unique name for the stack                                                                                                                            |
-| NamePrefix           | metrics-tile            | The prefix to use for all instance names created by this deployment                                                                                  |
-| VPCID                | vpc-xxxxxxxx            | The ID of the deployment VPC                                                                                                                         |
-
-8. Click 'Next' until you can click 'Create'
-9. Click 'Create'
-
-### Step 2: Add the PCF Metrics Tile to Ops Manager
+### Step 1: Add the PCF Metrics Tile to Ops Manager
 
 1. Download the product file from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
@@ -53,7 +34,7 @@ You will first have to deploy the
 1. Click **Add** next to the uploaded product description in the Ops Manager
    `Available Products` view to add this product to your staging area.
 
-### Step 3: Configure the PCF Metrics Tile
+### Step 2: Configure the PCF Metrics Tile
 
 On the Installation Dashboard, click the 'Metrics' tile.
 Note: the tile is orange because it requires configuration
@@ -86,6 +67,6 @@ Click 'Save'
    default instance sizes.
 1. Click 'Import Stemcell' and select the stemcell file just downloaded.
 
-### Step 4: Deploy PCF Metrics
+### Step 3: Deploy PCF Metrics
 
 1. Click **Apply Changes** to install the service.
