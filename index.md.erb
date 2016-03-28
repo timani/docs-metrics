@@ -10,7 +10,7 @@ graphically presents that data for operators and developers.
 
 <dl>
 <dt>Current PCF Metrics Details</dt>
-<dd><strong>Version</strong>: 1.0.0</dd>
+<dd><strong>Version</strong>: 1.0.2-beta</dd>
 <dd><strong>Release Date</strong>: TBD</dd>
 <dd><strong>Compatible Ops Manager Version(s)</strong>: TBD</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
@@ -26,33 +26,7 @@ graphically presents that data for operators and developers.
 You will first have to deploy the
 [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/getstarted/index.html).
 
-### Step 1: Run CloudFormation Script (AWS deploy only)
-
-1. Download Metrics <a href="<%= asset_url "assets/cloud_formations_template.json" %>" target="_blank">CloudFormation script</a>.
-2. Log on to the AWS Console and go to the CloudFormation Management Console.
-3. Click 'Create Stack'.
-4. Select 'Upload a template to Amazon S3'.
-5. Click 'Choose File' and choose the downloaded file.
-6. Click Next
-7. Specify the follow details:
-
-| Name                 | Example Value           | Description                                                                                                                                          |
-|----------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Stack Name           | metrics-tile            | Unique name for the stack                                                                                                                            |
-| ELBRecordSetName     | metrics.your-domain.com | DNS name where the PCF Metrics deployment will be located. Must be within the HostedZoneName. Optional, will not create DNS record if not specified. |
-| ExternalCIDR         | 10.0.134.0/24           | External subnet CIDR block that the ELB will reside in.                                                                                              |
-| ExternalRouteTableID | rtb-xxxxxxxx            | The ID of the route table for the External Subnet.                                                                                                   |
-| HAProxyPort          | 80                      | TCP/IP port of the HA Proxy server. Must be 80 (HTTP)                                                                                                |
-| HostedZoneName       | your-domain.com.        | (Optional) Route53 Hosted Zone in which to register the ELB's DNS record.                                                                            |
-| NamePrefix           | metrics-tile            | The prefix to use for all instance names created by this deployment                                                                                  |
-| SecurityGroupID      | sg-xxxxxxxx             | The ID of ELB security group                                                                                                                         |
-| SSLCert              | my_cert                 | The name of the SSL Certificate for the ELB. Can be the same as the Elastic Runtime certificate.                                                     |
-| VPCID                | vpc-xxxxxxxx            | The ID of the deployment VPC                                                                                                                         |
-
-8. Click 'Next' until you can click 'Create'
-9. Click 'Create'
-
-### Step 2: Add the PCF Metrics Tile to Ops Manager
+### Step 1: Add the PCF Metrics Tile to Ops Manager
 
 1. Download the product file from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
@@ -60,7 +34,7 @@ You will first have to deploy the
 1. Click **Add** next to the uploaded product description in the Ops Manager
    `Available Products` view to add this product to your staging area.
 
-### Step 3: Configure the PCF Metrics Tile
+### Step 2: Configure the PCF Metrics Tile
 
 On the Installation Dashboard, click the 'Metrics' tile.
 Note: the tile is orange because it requires configuration
@@ -93,6 +67,6 @@ Click 'Save'
    default instance sizes.
 1. Click 'Import Stemcell' and select the stemcell file just downloaded.
 
-### Step 4: Deploy PCF Metrics
+### Step 3: Deploy PCF Metrics
 
 1. Click **Apply Changes** to install the service.
