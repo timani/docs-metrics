@@ -28,9 +28,9 @@ Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io
 
 ### <a id='step1'></a> Step 1: Run CloudFormation Script
 
-1. If you are using an IaaS other than AWS, skip to [Step 2](#step2).
+1. If you are using an IaaS other than Amazon Web Services (AWS), skip to [Step 2](#step2).
 1. Download the PCF Metrics <a href="<%= asset_url "assets/cloud_formations_template.json" %>" target="_blank">CloudFormation script</a>.
-1. Log in to AWS and navigate to the **CloudFormation Management Console**.
+1. Log into AWS and navigate to the **CloudFormation Management Console**.
 1. Click **Create Stack**.
 1. Select **Upload a template to Amazon S3**.
 1. Click **Choose File** and select the PCF Metrics CloudFormation script you downloaded.
@@ -50,7 +50,7 @@ Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io
 	| SSLCert              | my_cert                 | The name of the SSL Certificate for the ELB. This value can be the same as the Elastic Runtime certificate.                                                     |
 	| VPCID                | vpc-xxxxxxxx            | The ID of the deployment VPC                                                                                                                         |
 
-1. Click **Next** until you can click **Create**.
+1. Click **Next** to proceed through unused CloudFormation configuration pages until you can click **Create**.
 1. Click **Create**.
 
 ### <a id='step2'></a> Step 2: Add the PCF Metrics Tile to Ops Manager
@@ -67,13 +67,9 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 <p class='note'><strong>Note:</strong> The tile is orange because it requires configuration.</p>
 
-#### Assign Networks
+#### Assign Availability Zones (AZs) and Networks.
 
-1. Use the drop-down menu to select a network.
-1. Click **Save**.
-
-#### Assign Availability Zones
-
+1. Click *Assign AZs and Networks**.
 1. Select an Availability Zone under **Place singleton jobs**. 
    <br>
    Ops Manager runs Metrics jobs with a single instance in this Availability Zone.
@@ -81,19 +77,20 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    <br>
    Ops Manager balances instances of Metrics jobs with more than one instance
    across the Availability Zones that you specify.
+1. Use the drop-down menu to select a network.
 1. Click **Save**.
 
 #### Resource Config
 
-1. Review the resource configurations. 
+1. Click **Resource Config**.
+1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
 1. Click **Save**. 
 
 #### Stemcell
 
-1. Log in to the [Pivotal Network](https://network.pivotal.io/products/pcf-metrics) and click **Stemcells**.
+1. Log into the [Pivotal Network](https://network.pivotal.io/products/pcf-metrics) and click **Stemcells**.
 1. Download the appropriate stemcell version for your IaaS.
-   <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the
-   default instance sizes.</p>
+   <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
 ### <a id='step4'></a>Step 4: Deploy PCF Metrics
