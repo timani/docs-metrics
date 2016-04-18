@@ -1,0 +1,70 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: Pivotal Cloud Foundry Metrics
+owner: PCF Metrics
+---
+
+The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers.
+
+## <a id='snapshot'></a>Product Snapshot ##
+
+<dl>
+<dt>Current PCF Metrics Details</dt>
+<dd><strong>Version</strong>: 1.0.0</dd>
+<dd><strong>Release Date</strong>: TBD</dd>
+<dd><strong>Compatible Ops Manager Version(s)</strong>: TBD</dd>
+<dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.6.16</dd>
+<dd><strong>AWS support?</strong> Yes<dd>
+<dd><strong>vSphere support?</strong> Yes</dd>
+<dd><strong>OpenStack support?</strong> Unconfirmed</dd>
+</dl>
+
+## <a id='install'></a>Install ##
+
+### <a id='pre-reqs'></a>Prerequisites ###
+
+Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
+
+### <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
+
+1. Download the PCF Metrics file from
+   [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
+1. Upload the PCF Metrics file to your Ops Manager installation.
+1. Click **Add** next to the uploaded product description in the **Available Products**
+   view to add PCF Metrics to your **Installation Dashboard**.
+
+### <a id='step2'></a>Step 2: Configure the PCF Metrics Tile
+
+From the **Installation Dashboard**, click the **PCF Metrics** tile.
+
+<p class='note'><strong>Note:</strong> The tile is orange because it requires configuration.</p>
+
+#### Assign Availability Zones (AZs) and Networks.
+
+1. Click **Assign AZs and Networks**.
+1. Select an Availability Zone under **Place singleton jobs**. 
+   <br>
+   Ops Manager runs Metrics jobs with a single instance in this Availability Zone.
+1. Select one or more Availability Zones under **Balance other jobs**. 
+   <br>
+   Ops Manager balances instances of Metrics jobs with more than one instance
+   across the Availability Zones that you specify.
+1. Use the drop-down menu to select a network.
+1. Click **Save**.
+
+#### Resource Config
+
+1. Click **Resource Config**.
+1. Review the resource configurations. By default, the settings match the instance types that are best suited for each job. If you expect a high level of use, you may need to increase the disk resources available to your instances.
+1. Click **Save**. 
+
+#### Stemcell
+
+1. Log into the [Pivotal Network](https://network.pivotal.io/products/pcf-metrics) and click **Stemcells**.
+1. Download the appropriate stemcell version for your IaaS.
+   <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
+1. Click **Import Stemcell** and select the stemcell file you downloaded.
+
+### <a id='step3'></a>Step 3: Deploy PCF Metrics
+
+Click **Apply Changes** to install the service.
