@@ -4,14 +4,14 @@ title: Using PCF Metrics
 owner: PCF Metrics
 ---
 
-This topic describes how to log in, use, and interpret data from the PCF Metrics tile.
+This topic describes how to log into, use, and interpret data from Pivotal Cloud Foundry® (PCF) Metrics. <%= vars.pws_metrics %>
 
-##<a id='login'></a> Log In and Use PCF Metrics
+##<a id='login'></a> Log Into and Use PCF Metrics
 
-1. In a browser, navigate to `metrics.YOUR-SYSTEM-DOMAIN` and log in with your User Account and Authentication (UAA) credentials.
-1. PCF Metrics uses UAA to retrieve a list of apps that correspond to your user's org roles, space roles, and permissions. To view metrics information for an app, enter the name of the app in the search box and select it from the dropdown menu.
+1. <%= vars.metrics_login %>
+1. <%= vars.metrics_viewapps %> 
     <%= image_tag("search-bar.png") %>
-1. Selecting the app displays the **Dashboard** view. The **Dashboard** includes the following information:
+1. Selecting an app displays the **Dashboard** view. The **Dashboard** includes the following information:
 	* The **Configuration** section shows the number of **Instances**, the **Memory Limit**, and the **Disk Limit** for the app. It also shows the URL.
 	* The **Recent Events** section lists all events from the past day.
 	* **Container Metrics** and **Network Metrics** show streaming trend lines for all metrics over the past five minutes.
