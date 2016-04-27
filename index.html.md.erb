@@ -4,7 +4,11 @@ title: Pivotal Cloud Foundry Metrics
 owner: PCF Metrics
 ---
 
-The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers.
+The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from applications running on PCF and graphically presents that data for operators and developers. PCF Metrics helps operators and developers better understand the health and performance of their apps by providing a near real-time view of the following data:
+
+* Container metrics: CPU, memory, and disk percentages (updated every 30 seconds)
+* Network metrics: requests per second, HTTP errors per second, and request latency (updated every second)
+* App events: create, update, start, stop, and crash (updated as they happen)
 
 ## <a id='snapshot'></a>Product Snapshot ##
 
@@ -19,9 +23,9 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 <dd><strong>OpenStack support?</strong> Unconfirmed</dd>
 </dl>
 
-## <a id='install'></a>Install ##
+## <a id='install'></a>Installing PCF Metrics 
 
-### <a id='pre-reqs'></a>Prerequisites ###
+### <a id='pre-reqs'></a>Prerequisites
 
 Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
 
@@ -67,4 +71,4 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
 ### <a id='step3'></a>Step 3: Deploy PCF Metrics
 
-Click **Apply Changes** to install the service.
+Click **Apply Changes** to install the service. Review the [Using PCF Metrics](using.html) topic for more information on how to log in, use, and interpret data from PCF Metrics.
