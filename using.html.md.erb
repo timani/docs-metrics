@@ -1,0 +1,38 @@
+---
+breadcrumb: PCF Metrics Documentation
+title: Using PCF Metrics
+owner: PCF Metrics
+---
+
+This topic describes how to log into, use, and interpret data from Pivotal Cloud Foundry® (PCF) Metrics. <%= vars.pws_metrics %>
+
+##<a id='login'></a> Log Into and Use PCF Metrics
+
+1. <%= vars.metrics_login %>
+1. <%= vars.metrics_viewapps %> 
+    <%= image_tag("search-bar.png") %>
+1. Selecting an app displays the **Dashboard** view. The **Dashboard** includes the following information:
+	* The **Configuration** section shows the number of **Instances**, the **Memory Limit**, and the **Disk Limit** for the app. It also shows the URL.
+	* The **Recent Events** section lists all events from the past day.
+	* **Container Metrics** and **Network Metrics** show streaming trend lines for all metrics over the past five minutes.
+	<%= image_tag("dashboard.png") %>
+1. Click **Container Metrics** to display information on CPU, memory, and disk usage. 
+	<%= image_tag("container-metrics.png") %>
+	* Clicking the play button displays an almost instantaneous view of container metrics data. 
+	* Clicking the pause button displays a historical view of container metrics data. You can determine the scope of the historical view by clicking the one minute, one hour, or one day button. Hover to display the details for your selected time slice and click to zoom in on it. Use the left and right arrow keys to navigate adjacent time slices, and use the up arrow key to zoom out.
+1. Click **Network Metrics** to display information on HTTP requests, errors, and latency.
+	<%= image_tag("network-metrics.png") %>
+	* Clicking the play button displays an almost instantaneous view of network metrics data. 
+	* Clicking the pause button displays a historical view of network metrics data. You can determine the scope of the historical view by clicking the one minute, one hour, or one day button. Hover to display the details for your selected time slice and click to zoom in on it. Use the left and right arrow keys to navigate adjacent time slices, and use the up arrow key to zoom out.
+<p class="note"><strong>Note</strong>: You can toggle between the <strong>Container Metrics</strong> and <strong>Network Metrics</strong> view  without leaving your selected time slice.</p>
+
+##<a id='metrics'></a> Interpret Metrics
+
+PCF Metrics provides data on CPU usage, memory usage, disk usage, latency, HTTP errors, and HTTP requests. Refer to the following list for help with interpreting these metrics.
+
+* A spike in CPU might point to a process that is computationally heavy. Scaling app instances can relieve the immediate pressure, but investigate the app to better understand and fix the root cause. 
+* A spike in memory might mean a resource leak in the code. Scaling app memory can also relieve the immediate pressure, but look for and resolve the underlying issue so that it does not occur again. 
+* A spike in disk might mean the app is writing logs to files instead of STDOUT, caching data to local disk, or serializing huge sessions to disk. 
+* A spike in latency means your users are waiting longer to use your app. Scaling app instances can spread that workload over more resources and result in faster response times. 
+* A spike in HTTP errors means one or more 4xx or 5xx errors have occurred. Check your app logs for more information. 
+* A spike in HTTP requests means more users are using your app. Scaling app instances can reduce the higher latency that may result.
