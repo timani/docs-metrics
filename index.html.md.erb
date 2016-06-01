@@ -54,7 +54,7 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 
 From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
-<p class='note'><strong>Note:</strong> The tile is orange because it requires configuration.</p>
+<p class='note'><strong>Note:</strong> The tile appears orange when it requires configuration.</p>
 
 #### Assign Availability Zones (AZs) and Networks.
 
@@ -82,25 +82,19 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 #### Database Options
 
 1. Click **Rules Database**.
-1. Configure the MySQL database source using one of the methods below
-1. Review the Max Idle Connection count and the Max Open Connections.
+1. You can configure PCF Metrics to use either Pivotal MySQL for Cloud Foundry or an external MySQL as its database source: 
+	* (Option 1) To use Pivotal MySQL, select **MySQL tile** and enter a **Service Plan Name**. To see the available MySQL service plans, run `cf marketplace` from the cf CLI and note the plans listed under `p-mysql`.
+	* (Option 2) To use an external database, select **External MySQL** and enter the **Database URL** in the format `mysql://username:password@hostname:port/db_schema`.
+1. Review the **Max Idle Connection** and the **Max Open Connections** counts. You can use these fields to tune the connections to your database. 
 1. Click **Save**.
-
-###### Configure PCF Metrics to use Pivotal MySQL for Cloud Foundry Tile
-1. Select **MySQL tile**
-1. Enter a MySQL service plan name provided by the Pivotal MySQL for Cloud Foundry Tile
-
-###### Configure PCF Metrics to use a custom MySQL database
-1. Select **External MySQL**
-1. Enter the url for the database in the format `mysql://username:password@hostname:port/db_schema`
 
 #### Errands
 
 1. Click **Errands**.
 
-1. Review **Post-Deploy Errands**. Select the checkboxes for all of the errands to deploy the necessary alerting and metrics components for the tile. If you choose not to run all errands, the system will not behave as expected.
+1. Review the **Pre-Delete Errands**. If you deselect the **Cleanup** checkbox, artifacts may remain after the PCF Metrics tile uninstalls.
 
-1. Review the **Pre-Delete Errands**. Select the cleanup errand to ensure the removal of If the cleanup errand is not selected, artifacts created by the tile may not be removed when the tile is uninstalled.
+<p class="note"><strong>Note:</strong> The PCF Metrics tile selects all <strong>Post-Deploy Errands</strong>, by default. Do not deselect any of these checkboxes.</p>
 
 #### Resource Config
 
