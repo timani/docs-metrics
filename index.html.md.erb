@@ -15,8 +15,9 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 <dl>
 <dt>Current PCF Metrics Details</dt>
 <dd><strong>Version</strong>: 1.1.0</dd>
-<dd><strong>Release Date</strong>: 4/18/2016</dd>
-<dd><strong>Compatible Ops Manager Version(s)</strong>: >= 1.7.0</dd>
+<dd><strong>Release Date</strong>: 7/25/2016</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Install</strong>: >= 1.7.0</dd>
+<dd><strong>Compatible Ops Manager Version(s) for Upgrade</strong>: >= 1.7.8</dd>
 <dd><strong>Compatible Elastic Runtime Version(s)</strong>: >= 1.7.0</dd>
 <dd><strong>AWS support?</strong> Yes<dd>
 <dd><strong>vSphere support?</strong> Yes</dd>
@@ -28,22 +29,9 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 ### <a id='pre-reqs'></a>Prerequisites
 
 1. Ensure that you have installed the [Elastic Runtime Tile](http://docs.pivotal.io/pivotalcf/installing/index.html).
-1. Ensure that you have installed the [MySQL for Pivotal Cloud Foundry Tile](http://docs.pivotal.io/p-mysql/index.html).
-	<p class="note"><strong>Note</strong>: You must install the MySQL for Pivotal Cloud Foundry Tile even if you intend to use your own MySQL service for rule storage.</p>
-
-### <a id='step1'></a> Step 1: Set up the Notification Service
-
-1. From the **Installation Dashboard**, select the **Elastic Runtime** tile.
-1. Click **Email Notifications**.
-1. Enter an originating email for sending notifications, along with the SMTP Server configuration.
-1. Click **Save**. 
-1. Click **Errands**.
-1. Select **Notifications** under **Post-Deploy Errands**.
-1. Select **Notifications-UI** under **Post-Deploy Errands**.
-1. Click **Save**. 
-1. From the Installation Dashboard, click **Apply Changes** to install the notification service.
-
-### <a id='step2'></a> Step 2: Add the PCF Metrics Tile to Ops Manager
+   <p class='note'><strong>Note</strong>: PCF Metrics should be installed on the same network as the Elastic Runtime Tile. </p>
+  
+### <a id='step1'></a> Step 1: Add the PCF Metrics Tile to Ops Manager
 
 1. Download the PCF Metrics file from
    [Pivotal Network](https://network.pivotal.io/products/pcf-metrics).
@@ -51,7 +39,7 @@ The Pivotal Cloud Foundry&reg; (PCF) Metrics tile stores metrics data from appli
 1. Click **Add** next to the uploaded product description in the **Available Products**
    view to add PCF Metrics to your **Installation Dashboard**.
 
-### <a id='step3'></a>Step 3: Configure the PCF Metrics Tile
+### <a id='step2'></a>Step 2: Configure the PCF Metrics Tile
 
 From the **Installation Dashboard**, click the **PCF Metrics** tile.
 
@@ -76,19 +64,6 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
 1. Review the **Instance Count** value. The PCF Metrics tile deploys one instance of the ingestor by default. You can increase this instance count at any time to accomodate higher levels of inbound log traffic. 
 1. Click **Save**.
 
-#### Alerting System Options
-1. Click **Alerting System Options**
-1. Select **Enable debug endpoint** if you want to access pprof information about the PCF Metrics tile. You can view this endpoint by navigating to `alerts-api.YOUR-DOMAIN/debug/pprof` and logging in with the **debug_credentials** under the **Credentias** tab of the PCF Metrics tile. 
-
-#### Database Options
-
-1. Click **Rules Database**.
-1. You can configure PCF Metrics to use either Pivotal MySQL for Cloud Foundry or an external MySQL as its database source: 
-	* (Option 1) To use Pivotal MySQL, select **MySQL tile** and enter a **Service Plan Name**. To see the available MySQL service plans, run `cf marketplace` from the cf CLI and note the plans listed under `p-mysql`.
-	* (Option 2) To use an external database, select **External MySQL** and enter the **Database URL** in the format `mysql://username:password@hostname:port/db_schema`.
-1. Review the **Max Idle Connection** and the **Max Open Connections** counts. You can use these fields to tune the connections to your database. 
-1. Click **Save**.
-
 #### Errands
 
 1. Click **Errands**.
@@ -110,6 +85,6 @@ From the **Installation Dashboard**, click the **PCF Metrics** tile.
    <p class='note'><strong>Note:</strong> On AWS make sure to use a HVM stemcell if you are using the default instance sizes.</p>
 1. Click **Import Stemcell** and select the stemcell file you downloaded.
 
-### <a id='step4'></a>Step 4: Deploy PCF Metrics
+### <a id='step3'></a>Step 3: Deploy PCF Metrics
 
 Click **Apply Changes** to install the service. Review the [Using PCF Metrics](using.html) topic for more information on how to log in, use, and interpret data from PCF Metrics.
