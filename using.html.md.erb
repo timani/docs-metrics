@@ -4,9 +4,9 @@ title: Using PCF Metrics
 owner: PCF Metrics
 ---
 
-This topic describes how to log into, use, and interpret data from Pivotal Cloud Foundry® (PCF) Metrics. <%= vars.pws_metrics %>
+This topic describes how to log into, use, and interpret data from Pivotal Cloud Foundry (PCF) Metrics. <%= vars.pws_metrics %>
 
-##<a id='login'></a> Log Into and Use PCF Metrics
+##<a id='get-started'></a> Get Started with PCF Metrics
 
 1. <%= vars.metrics_login %>
 1. <%= vars.metrics_viewapps %> 
@@ -15,15 +15,26 @@ This topic describes how to log into, use, and interpret data from Pivotal Cloud
 	* The **Configuration** section shows the number of **Instances**, the **Memory Limit**, and the **Disk Limit** for the app. It also shows the URL.
 	* The **Recent Events** section lists all events from the past day.
 	* **Container Metrics** and **Network Metrics** show streaming trend lines for all metrics over the past five minutes.
-	<%= image_tag("dashboard.png") %>
-1. Click **Container Metrics** to display information on CPU, memory, and disk usage. 
-	<%= image_tag("container-metrics.png") %>
-	* Click the pause button to display a historical view of container metrics data. You can determine the scope of the historical view by clicking the one minute, one hour, or one day button. Hover to display the details for your selected time slice and click to zoom in on it. Use the left and right arrow keys to navigate adjacent time slices, and use the up arrow key to zoom out.
-1. Click **Network Metrics** to display information on HTTP requests, errors, and latency.
-	<%= image_tag("network-metrics.png") %>
-	* Click the play button to display an almost instantaneous view of network metrics data. 
-	* Click the pause button to display a historical view of network metrics data. You can determine the scope of the historical view by clicking the one minute, one hour, or one day button. Hover to display the details for your selected time slice and click to zoom in on it. Use the left and right arrow keys to navigate adjacent time slices, and use the up arrow key to zoom out.
-<p class="note"><strong>Note</strong>: You can toggle between the <strong>Container Metrics</strong> and <strong>Network Metrics</strong> view  without leaving your selected time slice.</p>
+
+	<%= image_tag("dashboard_new.png") %>
+
+1. Select **Explore** from the left menu to view detailed metrics and logs. You can toggle the following:
+	* **Container Metrics** displays CPU, memory, and disk usage. 
+	* **Network Metrics** displays HTTP requests, errors, and latency.
+	* **Logs** displays application log data ingested from the [firehose](http://docs.pivotal.io/pivotalcf/1-7/loggregator/architecture.html#firehose). PCF Metrics stores application log data for 24 hours. 
+
+	<%= image_tag("explore.png") %>
+
+	
+1. Filter your log data by entering a keyword search or selecting a log source.
+
+1. Determine the scope of the historical view by clicking the one minute, one hour, or one day button. Use the left and right arrow keys to navigate adjacent time slices.
+	<%= image_tag("metrics-short.png") %>
+
+1. Hover over either metrics graph to display a view of network and container metrics data. 
+
+	<%= image_tag("metrics-new.png") %>
+
 
 ##<a id='metrics'></a> Interpret Metrics
 
